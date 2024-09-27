@@ -29,13 +29,12 @@ vpath $(DMG_NAME) $(APP_DIR)
 
 help: ### Print this help message
 	@awk 'BEGIN {FS = ":.*?###"} /^[a-zA-Z_-]+:.*?###/ {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
-	@$(MAKE) ?
 #@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-all: binary universal-bin ### all
+all: binary app ### make binary universal-bin
 
-binary: $(TARGET)-native ### Build a release binary
-universal-bin: $(TARGET)-universal ### Build a universal release binary
+binary: $(TARGET)-native ### Build binary
+universal-bin: $(TARGET)-universal ### Build universal-bin
 $(TARGET)-native: ### $(TARGET-native)
 	MACOSX_DEPLOYMENT_TARGET="10.11" cargo build --release
 $(TARGET)-universal:
