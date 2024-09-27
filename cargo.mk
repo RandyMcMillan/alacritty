@@ -15,7 +15,7 @@ cargo-publish-all:### 	cargo-publish-all
 	for t in */Cargo.toml;  do echo $$t; cargo publish -vv --manifest-path $$t; done
 cargo-sweep:### 	cargo-sweep sweep -t 1 -r
 ## 	cargo-sweep sweep -t 1 -r
-	type -P cargo-sweep && cargo-sweep sweep -t 1 -r
+	type -P cargo-sweep && cargo-sweep sweep -t 0 -r -vv --hidden || cargo binstall cargo-sweep || cargo install cargo-sweep
 cargo-install-bins:### 	cargo-install-bins
 ## 	cargo-install-all 	recursively cargo install -vv $(SUBMODULES)
 ## 	*** cargo install -vv --force is NOT used.
