@@ -67,7 +67,6 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 	@echo "Packing disk image..."
 	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
 	sips -i $(APP_DIR)/.VolumeIcon.icns
-	sips -i $(APP_DIR)/.background/background.tiff
 	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
 	@ln -sf /Applications $(APP_DIR)/Applications
 	hdiutil create \
