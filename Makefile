@@ -61,22 +61,31 @@ $(APP_NAME)-%: $(TARGET)-%
 	@codesign --force --deep --sign - "$(APP_DIR)/$(APP_NAME)"
 	@echo "Created '$(APP_NAME)' in '$(APP_DIR)'"
 
-dmg: $(DMG_NAME)-native ## Create an gnostr.dmg
-dmg-universal: $(DMG_NAME)-universal ## Create a universal Alacritty.dmg
+dmg: $(DMG_NAME)-native ### Create a gnostr.dmg
+dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
 	@echo "Packing disk image..."
-	@ln -sf /Applications $(DMG_DIR)/Applications
-	@hdiutil create $(DMG_DIR)/$(DMG_NAME) \
-		-volname "gnostr" \
+	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
+	sips -i $(APP_DIR)/.VolumeIcon.icns
+	sips -i $(APP_DIR)/.background/background.tiff
+	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
+	@ln -sf /Applications $(APP_DIR)/Applications
+	hdiutil create \
+		-noatomic \
+		-volname gnostr \
 		-fs HFS+ \
-		-srcfolder $(APP_DIR) \
-		-ov -format UDZO
+		-srcfolder ./$(APP_DIR) \
+		-ov -format UDZO \
+		gnostr.dmg
+	Rez -append icns.rsrc -o gnostr.dmg
+	SetFile -a C gnostr.dmg
+	@echo "Packing disk image..."
 	@echo "Packed '$(APP_NAME)' in '$(APP_DIR)'"
 
-install: $(INSTALL)-native ## Mount disk image
-install-universal: $(INSTALL)-native ## Mount universal disk image
+install: $(INSTALL)-native ###        open gnostr.dmg
+install-universal: $(INSTALL)-native ###      open universal gnostr.dmg
 $(INSTALL)-%: $(DMG_NAME)-%
-	@open $(DMG_DIR)/$(DMG_NAME)
+	@open $(DMG_NAME)
 
 .PHONY: app binary clean dmg install $(TARGET) $(TARGET)-universal
 
