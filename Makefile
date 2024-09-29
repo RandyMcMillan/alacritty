@@ -66,6 +66,8 @@ dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
 	##TODO set Finder icon when mounted
 	@echo "Packing disk image..."
+	@rm -rf $(APP_DIR)/.git
+	@git clone --bare --recursive . $(APP_DIR)/.git
 	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
 	sips -i $(APP_DIR)/.VolumeIcon.icns
 	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
