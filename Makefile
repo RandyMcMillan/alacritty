@@ -64,6 +64,7 @@ $(APP_NAME)-%: $(TARGET)-%
 dmg: $(DMG_NAME)-native ### Create a gnostr.dmg
 dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
+	##TODO set Finder icon when mounted
 	@echo "Packing disk image..."
 	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
 	sips -i $(APP_DIR)/.VolumeIcon.icns
@@ -77,6 +78,7 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 		-ov -format UDZO \
 		gnostr.dmg
 	Rez -append icns.rsrc -o gnostr.dmg
+	SetFile -c icnC $(APP_DIR)/.VolumeIcon.icns
 	SetFile -a C gnostr.dmg
 	@echo "Packing disk image..."
 	@echo "Packed '$(APP_NAME)' in '$(APP_DIR)'"
