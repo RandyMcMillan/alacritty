@@ -78,6 +78,14 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 	sips -i $(APP_DIR)/.VolumeIcon.icns
 	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
 	@ln -sf /Applications $(APP_DIR)/Applications
+	gpg \
+		--output \
+		./$(APP_DIR)/gnostr.app/Contents/MacOS/gnostr.sig \
+		--detach-sig $(APP_DIR)/gnostr.app/Contents/MacOS/gnostr
+	gpg \
+		--output \
+		./$(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources.sig \
+		--detach-sig $(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources
 	hdiutil create \
 		-noatomic \
 		-volname gnostr-$(COMMIT_HASH) \
