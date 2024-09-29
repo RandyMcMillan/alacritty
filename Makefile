@@ -23,6 +23,11 @@ APP_COMPLETIONS_DIR = $(APP_EXTRAS_DIR)/completions
 DMG_NAME = gnostr.dmg
 DMG_DIR = $(RELEASE_DIR)/osx
 
+COMMIT_HASH=$(shell test -z "$(shell git status --porcelain)" \
+    && echo "$(shell git rev-parse --short HEAD)" \
+    || echo "$(shell git rev-parse --short HEAD)-dirty")
+export COMMIT_HASH
+
 vpath $(TARGET) $(RELEASE_DIR)
 vpath $(APP_NAME) $(APP_DIR)
 vpath $(DMG_NAME) $(APP_DIR)
@@ -66,15 +71,16 @@ dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
 	##TODO set Finder icon when mounted
 	@echo "Packing disk image..."
-	@rm -rf $(APP_DIR)/.git
-	@git clone --bare --recursive --depth 1 . $(APP_DIR)/.git
+	echo $(COMMIT_HASH)
+	@rm -rf $(APP_DIR)/*.git
+	@git clone --bare --recursive --depth 1 . $(APP_DIR)/$(COMMIT_HASH).git
 	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
 	sips -i $(APP_DIR)/.VolumeIcon.icns
 	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
 	@ln -sf /Applications $(APP_DIR)/Applications
 	hdiutil create \
 		-noatomic \
-		-volname gnostr \
+		-volname gnostr-$(COMMIT_HASH) \
 		-fs HFS+ \
 		-srcfolder ./$(APP_DIR) \
 		-ov -format UDZO \
