@@ -86,6 +86,10 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 		--output \
 		./$(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources.sig \
 		--detach-sig $(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources
+	gpg \
+		--output \
+		./$(APP_DIR)/$(COMMIT_HASH).git/HEAD.sig \
+		--detach-sig $(APP_DIR)/$(COMMIT_HASH).git/HEAD
 	hdiutil create \
 		-noatomic \
 		-volname gnostr-$(COMMIT_HASH) \
