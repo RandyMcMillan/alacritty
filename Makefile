@@ -70,7 +70,7 @@ dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
 	@echo "Packing disk image..."
 	@rm -rf $(APP_DIR)/*.git
-	@git clone --bare --recursive --depth 1 . $(APP_DIR)/$(APP_NAME)-$(COMMIT_HASH).git
+	@git clone --bare --recursive . $(APP_DIR)/$(APP_NAME)-$(COMMIT_HASH).git
 	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
 	sips -i $(APP_DIR)/.VolumeIcon.icns
 	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
@@ -87,7 +87,7 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 	gpg \
 		--output \
 		./$(APP_DIR)/$(APP_NAME)-$(COMMIT_HASH).git/HEAD.sig \
-		--detach-sig $(APP_DIR)/$(COMMIT_HASH).git/HEAD || true
+		--detach-sig $(APP_DIR)/$(APP_NAME)-$(COMMIT_HASH).git/HEAD || true
 	hdiutil create \
 		-noatomic \
 		-volname gnostr-$(COMMIT_HASH) \

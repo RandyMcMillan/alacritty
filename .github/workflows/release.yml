@@ -5,7 +5,7 @@ on:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
 
 env:
-  APP_NAME: gnostr
+  APP_NAME: alacritty
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CARGO_TERM_COLOR: always
 
@@ -24,11 +24,13 @@ jobs:
       - name: Build ARM
         run: cargo build --release --target=aarch64-apple-darwin
       - name: Make DMG
-        run: make dmg-universal
+        run: APP_NAME=gnostr.app make dmg-universal
       - name: Upload Application
         run: |
-          mv ./target/release/osx/${APP_NAME}.dmg ./${APP_NAME}-${GITHUB_REF##*/}.dmg
-          ./.github/workflows/upload_asset.sh ./${APP_NAME}-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
+          ##mv ./target/release/osx/${APP_NAME}.dmg ./${APP_NAME}-${GITHUB_REF##*/}.dmg
+          mv gnostr.dmg ./gnostr-${GITHUB_REF##*/}.dmg
+          ## ./.github/workflows/upload_asset.sh ./${APP_NAME}-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./gnostr-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
 
   windows:
     runs-on: windows-latest
@@ -73,7 +75,7 @@ jobs:
         run: cargo test --release || true
       - name: Generate manpages
         run: |
-          scdoc < extra/man/${APP_NAME}.1.scd | gzip -c > "./${APP_NAME}1.gz"
+          scdoc < extra/man/${APP_NAME}.1.scd | gzip -c > "./${APP_NAME}.1.gz"
           scdoc < extra/man/${APP_NAME}-msg.1.scd | gzip -c > "./${APP_NAME}-msg.1.gz"
           scdoc < extra/man/${APP_NAME}.5.scd | gzip -c > "./${APP_NAME}.5.gz"
           scdoc < extra/man/${APP_NAME}-bindings.5.scd | gzip -c > "./${APP_NAME}-bindings.5.gz"
