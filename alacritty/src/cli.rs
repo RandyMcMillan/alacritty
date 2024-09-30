@@ -21,6 +21,69 @@ use crate::logging::LOG_TARGET_IPC_CONFIG;
 #[derive(Parser, Default, Debug)]
 #[clap(author, about, version = env!("VERSION"))]
 pub struct Options {
+
+    //COMPOSE A NOSTR NOTE
+
+    //gnostr --sec 1 --content "content" --dm www --kind 1 --created-at "$(date +%s) --pow 1"
+
+    /// nostr note
+    #[clap(long)]
+    pub content: Option<String>,
+
+    /// nostr recipient public_key
+    #[clap(long)]
+    pub dm: Option<String>,
+
+    /// wrap content boby in [ "EVENT", {...} ]
+    #[clap(long)]
+    pub envelope: Option<bool>,
+
+    /// nostr kind
+    #[clap(long)]
+    pub kind: Option<u8>,
+
+    /// unix_timestamp seconds
+    #[clap(long)]
+    pub created_at: Option<u32>,
+
+    /// nostr secret_key (sha256)
+    #[clap(long)]
+    pub sec: Option<String>,
+
+    /// proof of work requirement
+    #[clap(long)]
+    pub pow: Option<u8>,
+
+    /// nostr public_key prefix
+    #[clap(long)]
+    pub mine_pubkey: Option<String>,
+
+    /// nostr tag <string> <sting>
+    #[clap(long)]
+    pub tag: Option<Vec<String>>,
+
+    /// sha256 <string>
+    #[clap(long)]
+    pub hash: Option<String>,
+
+    /// event id <string>
+    #[clap(short)]
+    pub e: Option<String>,
+
+    /// pubkey <string>
+    #[clap(short)]
+    pub p: Option<String>,
+
+    /// t <string>
+    #[clap(short)]
+    pub t: Option<String>,
+
+    //
+
+    //
+
+    //
+
     /// Print all events to STDOUT.
     #[clap(long)]
     pub print_events: bool,
