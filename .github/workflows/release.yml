@@ -28,8 +28,8 @@ jobs:
         run: make dmg-universal
       - name: Upload Application
         run: |
-          mv ./target/release/osx/Alacritty.dmg ./Alacritty-${GITHUB_REF##*/}.dmg
-          ./.github/workflows/upload_asset.sh ./Alacritty-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
+          mv ./target/release/osx/gnostr.dmg ./gnostr-${GITHUB_REF##*/}.dmg
+          ./.github/workflows/upload_asset.sh ./gnostr-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
 
   windows:
     runs-on: windows-latest
