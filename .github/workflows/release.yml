@@ -5,6 +5,7 @@ on:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
 
 env:
+  APP_NAME: gnostr
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CARGO_TERM_COLOR: always
 
@@ -26,8 +27,8 @@ jobs:
         run: make dmg-universal
       - name: Upload Application
         run: |
-          mv ./target/release/osx/Alacritty.dmg ./Alacritty-${GITHUB_REF##*/}.dmg
-          ./.github/workflows/upload_asset.sh ./Alacritty-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
+          mv ./target/release/osx/${APP_NAME}.dmg ./${APP_NAME}-${GITHUB_REF##*/}.dmg
+          ./.github/workflows/upload_asset.sh ./${APP_NAME}-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
 
   windows:
     runs-on: windows-latest
@@ -44,20 +45,20 @@ jobs:
         run: cargo build --release
       - name: Upload portable executable
         run: |
-          cp ./target/release/alacritty.exe ./Alacritty-${GITHUB_REF##*/}-portable.exe
+          cp ./target/release/${APP_NAME}.exe ./${APP_NAME}-${GITHUB_REF##*/}-portable.exe
           ./.github/workflows/upload_asset.sh \
-            ./Alacritty-${GITHUB_REF##*/}-portable.exe $GITHUB_TOKEN
+            ./${APP_NAME}-${GITHUB_REF##*/}-portable.exe $GITHUB_TOKEN
       - name: Install WiX
         run: dotnet tool install --global wix --version 4.0.5
       - name: Create msi installer
         run: |
           wix extension add WixToolset.UI.wixext/4.0.5 WixToolset.Util.wixext/4.0.5
           wix build -arch "x64" -ext WixToolset.UI.wixext -ext WixToolset.Util.wixext \
-          -out "./Alacritty-${GITHUB_REF##*/}-installer.msi" "alacritty/windows/wix/alacritty.wxs"
+          -out "./${APP_NAME}-${GITHUB_REF##*/}-installer.msi" "${APP_NAME}/windows/wix/${APP_NAME}.wxs"
       - name: Upload msi installer
         run: |
           ./.github/workflows/upload_asset.sh \
-            ./Alacritty-${GITHUB_REF##*/}-installer.msi $GITHUB_TOKEN
+            ./${APP_NAME}-${GITHUB_REF##*/}-installer.msi $GITHUB_TOKEN
 
   linux:
     runs-on: ubuntu-latest
@@ -72,20 +73,20 @@ jobs:
         run: cargo test --release || true
       - name: Generate manpages
         run: |
-          scdoc < extra/man/alacritty.1.scd | gzip -c > "./alacritty.1.gz"
-          scdoc < extra/man/alacritty-msg.1.scd | gzip -c > "./alacritty-msg.1.gz"
-          scdoc < extra/man/alacritty.5.scd | gzip -c > "./alacritty.5.gz"
-          scdoc < extra/man/alacritty-bindings.5.scd | gzip -c > "./alacritty-bindings.5.gz"
+          scdoc < extra/man/${APP_NAME}.1.scd | gzip -c > "./${APP_NAME}1.gz"
+          scdoc < extra/man/${APP_NAME}-msg.1.scd | gzip -c > "./${APP_NAME}-msg.1.gz"
+          scdoc < extra/man/${APP_NAME}.5.scd | gzip -c > "./${APP_NAME}.5.gz"
+          scdoc < extra/man/${APP_NAME}-bindings.5.scd | gzip -c > "./${APP_NAME}-bindings.5.gz"
       - name: Upload Assets
         run: |
-          mv ./extra/logo/alacritty-term.svg ./Alacritty.svg
+          mv ./extra/logo/${APP_NAME}-term.svg ./Alacritty.svg
           ./.github/workflows/upload_asset.sh ./Alacritty.svg $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty.1.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty-msg.1.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty.5.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty-bindings.5.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/completions/alacritty.bash $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/completions/alacritty.fish $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/completions/_alacritty $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./${APP_NAME}.1.gz $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./${APP_NAME}-msg.1.gz $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./${APP_NAME}.5.gz $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./${APP_NAME}-bindings.5.gz $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./extra/completions/${APP_NAME}.bash $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./extra/completions/${APP_NAME}.fish $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./extra/completions/_${APP_NAME} $GITHUB_TOKEN
           ./.github/workflows/upload_asset.sh ./extra/linux/Alacritty.desktop $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/alacritty.info $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./extra/${APP_NAME}.info $GITHUB_TOKEN
