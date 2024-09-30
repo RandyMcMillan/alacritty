@@ -81,15 +81,15 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 	gpg \
 		--output \
 		./$(APP_DIR)/gnostr.app/Contents/MacOS/gnostr.sig \
-		--detach-sig $(APP_DIR)/gnostr.app/Contents/MacOS/gnostr
+		--detach-sig $(APP_DIR)/gnostr.app/Contents/MacOS/gnostr || true
 	gpg \
 		--output \
 		./$(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources.sig \
-		--detach-sig $(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources
+		--detach-sig $(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources || true
 	gpg \
 		--output \
 		./$(APP_DIR)/$(COMMIT_HASH).git/HEAD.sig \
-		--detach-sig $(APP_DIR)/$(COMMIT_HASH).git/HEAD
+		--detach-sig $(APP_DIR)/$(COMMIT_HASH).git/HEAD || true
 	hdiutil create \
 		-noatomic \
 		-volname gnostr-$(COMMIT_HASH) \
