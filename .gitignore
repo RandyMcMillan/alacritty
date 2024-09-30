@@ -1,1 +1,8 @@
-target
+!target/.rustc_info.json
+target/CACHEDIR.TAG
+target/debug
+target/release
+target/tmp
+target/*-apple-darwin*
+
+icns.rsrc
