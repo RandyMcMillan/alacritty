@@ -70,22 +70,23 @@ dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
 	@echo "Packing disk image..."
 	@rm -rf $(APP_DIR)/*.git
-	@git clone --bare --recursive --depth 1 . $(APP_DIR)/$(COMMIT_HASH).git
+	@git clone --bare --recursive --depth 1 . $(APP_DIR)/$(APP_NAME)-$(COMMIT_HASH).git
 	@cp -fp  $(ASSETS_DIR)/osx/.VolumeIcon.icns $(APP_DIR)/.VolumeIcon.icns
 	sips -i $(APP_DIR)/.VolumeIcon.icns
 	DeRez -only icns $(APP_DIR)/.VolumeIcon.icns > icns.rsrc
 	@ln -sf /Applications $(APP_DIR)/Applications
+	@ln -sf /Users/Shared $(APP_DIR)/Shared
 	gpg \
 		--output \
-		./$(APP_DIR)/gnostr.app/Contents/MacOS/gnostr.sig \
-		--detach-sig $(APP_DIR)/gnostr.app/Contents/MacOS/gnostr || true
+		./$(APP_DIR)/$(APP_NAME)/Contents/MacOS/gnostr.sig \
+		--detach-sig $(APP_DIR)/$(APP_NAME)/Contents/MacOS/gnostr || true
 	gpg \
 		--output \
-		./$(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources.sig \
-		--detach-sig $(APP_DIR)/gnostr.app/Contents/_CodeSignature/CodeResources || true
+		./$(APP_DIR)/$(APP_NAME)/Contents/_CodeSignature/CodeResources.sig \
+		--detach-sig $(APP_DIR)/$(APP_NAME)/Contents/_CodeSignature/CodeResources || true
 	gpg \
 		--output \
-		./$(APP_DIR)/$(COMMIT_HASH).git/HEAD.sig \
+		./$(APP_DIR)/$(APP_NAME)-$(COMMIT_HASH).git/HEAD.sig \
 		--detach-sig $(APP_DIR)/$(COMMIT_HASH).git/HEAD || true
 	hdiutil create \
 		-noatomic \
