@@ -1,5 +1,5 @@
 [package]
-name = "alacritty"
+name = "gnostr"
 version = "0.14.0-dev"
 authors = ["Christian Duerr <contact@christianduerr.com>", "Joe Wilm <joe@jwilm.com>"]
 license = "Apache-2.0"

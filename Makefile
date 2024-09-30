@@ -1,4 +1,4 @@
-TARGET = alacritty
+TARGET = gnostr
 
 ASSETS_DIR = extra
 RELEASE_DIR = target/release
@@ -12,7 +12,7 @@ COMPLETIONS = $(COMPLETIONS_DIR)/_alacritty \
 	$(COMPLETIONS_DIR)/alacritty.bash \
 	$(COMPLETIONS_DIR)/alacritty.fish
 
-APP_NAME = Alacritty.app
+APP_NAME = gnostr.app
 APP_TEMPLATE = $(ASSETS_DIR)/osx/$(APP_NAME)
 APP_DIR = $(RELEASE_DIR)/osx
 APP_BINARY = $(RELEASE_DIR)/$(TARGET)
@@ -20,7 +20,7 @@ APP_BINARY_DIR = $(APP_DIR)/$(APP_NAME)/Contents/MacOS
 APP_EXTRAS_DIR = $(APP_DIR)/$(APP_NAME)/Contents/Resources
 APP_COMPLETIONS_DIR = $(APP_EXTRAS_DIR)/completions
 
-DMG_NAME = Alacritty.dmg
+DMG_NAME = gnostr.dmg
 DMG_DIR = $(RELEASE_DIR)/osx
 
 COMMIT_HASH=$(shell test -z "$(shell git status --porcelain)" \
@@ -32,22 +32,22 @@ vpath $(TARGET) $(RELEASE_DIR)
 vpath $(APP_NAME) $(APP_DIR)
 vpath $(DMG_NAME) $(APP_DIR)
 
-all: help
-
 help: ## Print this help message
 	@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-binary: $(TARGET)-native ## Build a release binary
-binary-universal: $(TARGET)-universal ## Build a universal release binary
-$(TARGET)-native:
+all: binary app ### make binary universal-bin
+
+binary: $(TARGET)-native ### Build binary
+universal-bin: $(TARGET)-universal ### Build universal-bin
+$(TARGET)-native: ### $(TARGET-native)
 	MACOSX_DEPLOYMENT_TARGET="10.11" cargo build --release
 $(TARGET)-universal:
 	MACOSX_DEPLOYMENT_TARGET="10.11" cargo build --release --target=x86_64-apple-darwin || rustup target add x86_64-apple-darwin
 	MACOSX_DEPLOYMENT_TARGET="10.11" cargo build --release --target=aarch64-apple-darwin || rustup target add aarch64-apple-darwin
 	@lipo target/{x86_64,aarch64}-apple-darwin/release/$(TARGET) -create -output $(APP_BINARY)
 
-app: $(APP_NAME)-native ## Create an Alacritty.app
-app-universal: $(APP_NAME)-universal ## Create a universal Alacritty.app
+app: $(APP_NAME)-native ### Create a gnostr.app
+universal-app: $(APP_NAME)-universal ### Create a universal gnostr.app
 $(APP_NAME)-%: $(TARGET)-%
 	@mkdir -p $(APP_BINARY_DIR)
 	@mkdir -p $(APP_EXTRAS_DIR)
@@ -65,8 +65,8 @@ $(APP_NAME)-%: $(TARGET)-%
 	@codesign --force --deep --sign - "$(APP_DIR)/$(APP_NAME)"
 	@echo "Created '$(APP_NAME)' in '$(APP_DIR)'"
 
-dmg: $(DMG_NAME)-native ## Create an Alacritty.dmg
-dmg-universal: $(DMG_NAME)-universal ## Create a universal Alacritty.dmg
+dmg: $(DMG_NAME)-native ### Create a gnostr.dmg
+dmg-universal: $(DMG_NAME)-universal ### Create a universal gnostr.dmg
 $(DMG_NAME)-%: $(APP_NAME)-%
 	@echo "Packing disk image..."
 	@ln -sf /Applications $(DMG_DIR)/Applications
@@ -77,8 +77,8 @@ $(DMG_NAME)-%: $(APP_NAME)-%
 		-ov -format UDZO
 	@echo "Packed '$(APP_NAME)' in '$(APP_DIR)'"
 
-install: $(INSTALL)-native ## Mount disk image
-install-universal: $(INSTALL)-native ## Mount universal disk image
+install: $(INSTALL)-native ###        open gnostr.dmg
+install-universal: $(INSTALL)-native ###      open universal gnostr.dmg
 $(INSTALL)-%: $(DMG_NAME)-%
 	@open $(DMG_DIR)/$(DMG_NAME)
 
