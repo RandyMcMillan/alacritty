@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: printenv
+        run: printenv
       - name: Stable
         run: cargo test
       - name: Stable (no default features)
@@ -31,6 +33,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: printenv
+        run: printenv
       - name: Install target
         run: rustup update && rustup target add x86_64-apple-darwin
       - name: Build

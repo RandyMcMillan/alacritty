@@ -14,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: printenv
+        run: printenv
       - name: Install dependencies
         run: brew install scdoc
       - name: Install ARM target
