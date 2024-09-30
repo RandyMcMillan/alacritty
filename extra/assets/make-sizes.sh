@@ -5,7 +5,10 @@ sips -z 48 48     gnostr.png --out app/48x48.png
 sips -z 64 64     gnostr.png --out app/64x64.png
 sips -z 64 64     gnostr.png --out alacritty-simple.png
 sips -z 64 64     gnostr.png --out alacritty-term.png
-sips -z 64 64     gnostr.png --out alacritty-term+scanlines
+sips -z 64 64     gnostr.png --out alacritty-term+scanlines.png
+sips -z 64 64     gnostr.png --out compat/alacritty-simple.png
+sips -z 64 64     gnostr.png --out compat/alacritty-term.png
+sips -z 64 64     gnostr.png --out compat/alacritty-term+scanlines.png
 sips -z 96 96     gnostr.png --out app/96x96.png
 sips -z 128 128   gnostr.png --out app/128x128.png
 sips -z 256 256   gnostr.png --out app/256x256.png
