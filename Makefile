@@ -23,7 +23,7 @@ APP_COMPLETIONS_DIR = $(APP_EXTRAS_DIR)/completions
 DMG_NAME = Alacritty.dmg
 DMG_DIR = $(RELEASE_DIR)/osx
 
-COMMIT_HASH=$(shell test -z "$(git status --porcelain)" \
+COMMIT_HASH=$(shell test -z "$(shell git status --porcelain)" \
     && echo "$(shell git rev-parse --short HEAD)" \
     || echo "$(shell git rev-parse --short HEAD)-dirty")
 export COMMIT_HASH
