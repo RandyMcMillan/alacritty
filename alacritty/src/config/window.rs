@@ -14,7 +14,7 @@ use crate::config::ui_config::{Delta, Percentage};
 use crate::config::LOG_TARGET_CONFIG;
 
 /// Default Alacritty name, used for window title and class.
-pub const DEFAULT_NAME: &str = "Alacritty";
+pub const DEFAULT_NAME: &str = "gnostr";
 
 #[derive(ConfigDeserialize, Debug, Clone, PartialEq)]
 pub struct WindowConfig {

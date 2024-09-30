@@ -1,5 +1,5 @@
 [package]
-name = "gnostr"
+name = "Alacritty"
 version = "0.14.0-dev"
 authors = ["Christian Duerr <contact@christianduerr.com>", "Joe Wilm <joe@jwilm.com>"]
 license = "Apache-2.0"
@@ -9,6 +9,18 @@ homepage = "https://alacritty.org"
 repository = "https://github.com/alacritty/alacritty"
 edition = "2021"
 rust-version = "1.74.0"
+
+[[bin]]
+name = "Alacritty"
+path = "src/main.rs"
+test = false
+bench = false
+
+[[bin]]
+name = "gnostr"
+path = "src/main.rs"
+test = false
+bench = false
 
 [dependencies.alacritty_terminal]
 path = "../alacritty_terminal"
