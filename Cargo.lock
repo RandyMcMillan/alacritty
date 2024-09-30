@@ -31,41 +31,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "alacritty"
-version = "0.14.0-dev"
-dependencies = [
- "ahash",
- "alacritty_config",
- "alacritty_config_derive",
- "alacritty_terminal",
- "bitflags 2.6.0",
- "clap",
- "clap_complete",
- "cocoa",
- "copypasta",
- "crossfont",
- "dirs",
- "embed-resource",
- "gl_generator",
- "glutin",
- "home",
- "libc",
- "log",
- "notify",
- "objc",
- "parking_lot",
- "png",
- "serde",
- "serde_json",
- "serde_yaml",
- "toml",
- "unicode-width",
- "windows-sys 0.52.0",
- "winit",
- "xdg",
-]
-
-[[package]]
 name = "alacritty_config"
 version = "0.2.1-dev"
 dependencies = [
@@ -860,6 +825,41 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0a4e1951bbd9434a81aa496fe59ccc2235af3820d27b85f9314e279609211e2c"
 dependencies = [
  "gl_generator",
+]
+
+[[package]]
+name = "gnostr"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "alacritty_config",
+ "alacritty_config_derive",
+ "alacritty_terminal",
+ "bitflags 2.6.0",
+ "clap",
+ "clap_complete",
+ "cocoa",
+ "copypasta",
+ "crossfont",
+ "dirs",
+ "embed-resource",
+ "gl_generator",
+ "glutin",
+ "home",
+ "libc",
+ "log",
+ "notify",
+ "objc",
+ "parking_lot",
+ "png",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "toml",
+ "unicode-width",
+ "windows-sys 0.52.0",
+ "winit",
+ "xdg",
 ]
 
 [[package]]

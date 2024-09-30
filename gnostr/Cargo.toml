@@ -1,12 +1,12 @@
 [package]
-name = "alacritty"
-version = "0.14.0-dev"
-authors = ["Christian Duerr <contact@christianduerr.com>", "Joe Wilm <joe@jwilm.com>"]
+name = "gnostr"
+version = "0.0.1"
+authors = ["gnosstr <admin@gnostr.org>", "Christian Duerr <contact@christianduerr.com>", "Joe Wilm <joe@jwilm.com>"]
 license = "Apache-2.0"
 description = "A fast, cross-platform, OpenGL terminal emulator"
 readme = "README.md"
-homepage = "https://alacritty.org"
-repository = "https://github.com/alacritty/alacritty"
+homepage = "https://gnostr.org"
+repository = "https://github.com/gnostr-org/gnostr"
 edition = "2021"
 rust-version = "1.74.0"
 
