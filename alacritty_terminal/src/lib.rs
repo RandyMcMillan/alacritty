@@ -1,4 +1,4 @@
-//! Alacritty - The GPU Enhanced Terminal.
+//! gnostr: a git+nostr workflow utility
 
 #![warn(rust_2018_idioms, future_incompatible)]
 #![deny(clippy::all, clippy::if_not_else, clippy::enum_glob_use)]
