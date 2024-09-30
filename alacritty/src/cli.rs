@@ -512,6 +512,7 @@ mod tests {
     #[cfg(target_os = "linux")]
     #[test]
     fn completions() {
+        let whoami = std::env::args().nth(0).unwrap();
         let mut clap = Options::command();
 
         for (shell, file) in &[
@@ -520,7 +521,7 @@ mod tests {
             (Shell::Zsh, "_alacritty"),
         ] {
             let mut generated = Vec::new();
-            clap_complete::generate(*shell, &mut clap, "alacritty", &mut generated);
+            clap_complete::generate(*shell, &mut clap, whoami.clone(), &mut generated);
             let generated = String::from_utf8_lossy(&generated);
 
             let mut completion = String::new();
