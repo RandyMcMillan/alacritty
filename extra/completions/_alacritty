@@ -1,8 +1,8 @@
-#compdef alacritty
+#compdef gnostr
 
 autoload -U is-at-least
 
-_alacritty() {
+_gnostr() {
     typeset -A opt_args
     typeset -a _arguments_options
     local ret=1
@@ -15,15 +15,15 @@ _alacritty() {
 
     local context curcontext="$curcontext" state line
     _arguments "${_arguments_options[@]}" : \
-'--embed=[X11 window ID to embed Alacritty within (decimal or hexadecimal with "0x" prefix)]:EMBED: ' \
-'--config-file=[Specify alternative configuration file \[default\: \$XDG_CONFIG_HOME/alacritty/alacritty.toml\]]:CONFIG_FILE:_files' \
+'--embed=[X11 window ID to embed gnostr within (decimal or hexadecimal with "0x" prefix)]:EMBED: ' \
+'--config-file=[Specify alternative configuration file \[default\: \$XDG_CONFIG_HOME/gnostr/gnostr.toml\]]:CONFIG_FILE:_files' \
 '--socket=[Path for IPC socket creation]:SOCKET:_files' \
 '--working-directory=[Start the shell in the specified working directory]:WORKING_DIRECTORY:_files' \
 '*-e+[Command and args to execute (must be last argument)]:COMMAND: ' \
 '*--command=[Command and args to execute (must be last argument)]:COMMAND: ' \
-'-T+[Defines the window title \[default\: Alacritty\]]:TITLE: ' \
-'--title=[Defines the window title \[default\: Alacritty\]]:TITLE: ' \
-'--class=[Defines window class/app_id on X11/Wayland \[default\: Alacritty\]]:general> | <general>,<instance: ' \
+'-T+[Defines the window title \[default\: gnostr\]]:TITLE: ' \
+'--title=[Defines the window title \[default\: gnostr\]]:TITLE: ' \
+'--class=[Defines window class/app_id on X11/Wayland \[default\: gnostr\]]:general> | <general>,<instance: ' \
 '*-o+[Override configuration file options \[example\: '\''cursor.style="Beam"'\''\]]:OPTION: ' \
 '*--option=[Override configuration file options \[example\: '\''cursor.style="Beam"'\''\]]:OPTION: ' \
 '--print-events[Print all events to STDOUT]' \
@@ -35,14 +35,14 @@ _alacritty() {
 '--help[Print help]' \
 '-V[Print version]' \
 '--version[Print version]' \
-":: :_alacritty_commands" \
-"*::: :->alacritty" \
+":: :_gnostr_commands" \
+"*::: :->gnostr" \
 && ret=0
     case $state in
-    (alacritty)
+    (gnostr)
         words=($line[1] "${words[@]}")
         (( CURRENT += 1 ))
-        curcontext="${curcontext%:*:*}:alacritty-command-$line[1]:"
+        curcontext="${curcontext%:*:*}:gnostr-command-$line[1]:"
         case $line[1] in
             (msg)
 _arguments "${_arguments_options[@]}" : \
@@ -50,7 +50,7 @@ _arguments "${_arguments_options[@]}" : \
 '--socket=[IPC socket connection path override]:SOCKET:_files' \
 '-h[Print help]' \
 '--help[Print help]' \
-":: :_alacritty__msg_commands" \
+":: :_gnostr__msg_commands" \
 "*::: :->msg" \
 && ret=0
 
@@ -58,16 +58,16 @@ _arguments "${_arguments_options[@]}" : \
     (msg)
         words=($line[1] "${words[@]}")
         (( CURRENT += 1 ))
-        curcontext="${curcontext%:*:*}:alacritty-msg-command-$line[1]:"
+        curcontext="${curcontext%:*:*}:gnostr-msg-command-$line[1]:"
         case $line[1] in
             (create-window)
 _arguments "${_arguments_options[@]}" : \
 '--working-directory=[Start the shell in the specified working directory]:WORKING_DIRECTORY:_files' \
 '*-e+[Command and args to execute (must be last argument)]:COMMAND: ' \
 '*--command=[Command and args to execute (must be last argument)]:COMMAND: ' \
-'-T+[Defines the window title \[default\: Alacritty\]]:TITLE: ' \
-'--title=[Defines the window title \[default\: Alacritty\]]:TITLE: ' \
-'--class=[Defines window class/app_id on X11/Wayland \[default\: Alacritty\]]:general> | <general>,<instance: ' \
+'-T+[Defines the window title \[default\: gnostr\]]:TITLE: ' \
+'--title=[Defines the window title \[default\: gnostr\]]:TITLE: ' \
+'--class=[Defines window class/app_id on X11/Wayland \[default\: gnostr\]]:general> | <general>,<instance: ' \
 '*-o+[Override configuration file options \[example\: '\''cursor.style="Beam"'\''\]]:OPTION: ' \
 '*--option=[Override configuration file options \[example\: '\''cursor.style="Beam"'\''\]]:OPTION: ' \
 '--hold[Remain open after child process exit]' \
@@ -88,7 +88,7 @@ _arguments "${_arguments_options[@]}" : \
 ;;
 (help)
 _arguments "${_arguments_options[@]}" : \
-":: :_alacritty__msg__help_commands" \
+":: :_gnostr__msg__help_commands" \
 "*::: :->help" \
 && ret=0
 
@@ -96,7 +96,7 @@ _arguments "${_arguments_options[@]}" : \
     (help)
         words=($line[1] "${words[@]}")
         (( CURRENT += 1 ))
-        curcontext="${curcontext%:*:*}:alacritty-msg-help-command-$line[1]:"
+        curcontext="${curcontext%:*:*}:gnostr-msg-help-command-$line[1]:"
         case $line[1] in
             (create-window)
 _arguments "${_arguments_options[@]}" : \
@@ -135,7 +135,7 @@ _arguments "${_arguments_options[@]}" : \
 ;;
 (help)
 _arguments "${_arguments_options[@]}" : \
-":: :_alacritty__help_commands" \
+":: :_gnostr__help_commands" \
 "*::: :->help" \
 && ret=0
 
@@ -143,11 +143,11 @@ _arguments "${_arguments_options[@]}" : \
     (help)
         words=($line[1] "${words[@]}")
         (( CURRENT += 1 ))
-        curcontext="${curcontext%:*:*}:alacritty-help-command-$line[1]:"
+        curcontext="${curcontext%:*:*}:gnostr-help-command-$line[1]:"
         case $line[1] in
             (msg)
 _arguments "${_arguments_options[@]}" : \
-":: :_alacritty__help__msg_commands" \
+":: :_gnostr__help__msg_commands" \
 "*::: :->msg" \
 && ret=0
 
@@ -155,7 +155,7 @@ _arguments "${_arguments_options[@]}" : \
     (msg)
         words=($line[1] "${words[@]}")
         (( CURRENT += 1 ))
-        curcontext="${curcontext%:*:*}:alacritty-help-msg-command-$line[1]:"
+        curcontext="${curcontext%:*:*}:gnostr-help-msg-command-$line[1]:"
         case $line[1] in
             (create-window)
 _arguments "${_arguments_options[@]}" : \
@@ -186,103 +186,103 @@ esac
 esac
 }
 
-(( $+functions[_alacritty_commands] )) ||
-_alacritty_commands() {
+(( $+functions[_gnostr_commands] )) ||
+_gnostr_commands() {
     local commands; commands=(
-'msg:Send a message to the Alacritty socket' \
+'msg:Send a message to the gnostr socket' \
 'migrate:Migrate the configuration file' \
 'help:Print this message or the help of the given subcommand(s)' \
     )
-    _describe -t commands 'alacritty commands' commands "$@"
+    _describe -t commands 'gnostr commands' commands "$@"
 }
-(( $+functions[_alacritty__help_commands] )) ||
-_alacritty__help_commands() {
+(( $+functions[_gnostr__help_commands] )) ||
+_gnostr__help_commands() {
     local commands; commands=(
-'msg:Send a message to the Alacritty socket' \
+'msg:Send a message to the gnostr socket' \
 'migrate:Migrate the configuration file' \
 'help:Print this message or the help of the given subcommand(s)' \
     )
-    _describe -t commands 'alacritty help commands' commands "$@"
+    _describe -t commands 'gnostr help commands' commands "$@"
 }
-(( $+functions[_alacritty__help__help_commands] )) ||
-_alacritty__help__help_commands() {
+(( $+functions[_gnostr__help__help_commands] )) ||
+_gnostr__help__help_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty help help commands' commands "$@"
+    _describe -t commands 'gnostr help help commands' commands "$@"
 }
-(( $+functions[_alacritty__help__migrate_commands] )) ||
-_alacritty__help__migrate_commands() {
+(( $+functions[_gnostr__help__migrate_commands] )) ||
+_gnostr__help__migrate_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty help migrate commands' commands "$@"
+    _describe -t commands 'gnostr help migrate commands' commands "$@"
 }
-(( $+functions[_alacritty__help__msg_commands] )) ||
-_alacritty__help__msg_commands() {
+(( $+functions[_gnostr__help__msg_commands] )) ||
+_gnostr__help__msg_commands() {
     local commands; commands=(
-'create-window:Create a new window in the same Alacritty process' \
-'config:Update the Alacritty configuration' \
+'create-window:Create a new window in the same gnostr process' \
+'config:Update the gnostr configuration' \
     )
-    _describe -t commands 'alacritty help msg commands' commands "$@"
+    _describe -t commands 'gnostr help msg commands' commands "$@"
 }
-(( $+functions[_alacritty__help__msg__config_commands] )) ||
-_alacritty__help__msg__config_commands() {
+(( $+functions[_gnostr__help__msg__config_commands] )) ||
+_gnostr__help__msg__config_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty help msg config commands' commands "$@"
+    _describe -t commands 'gnostr help msg config commands' commands "$@"
 }
-(( $+functions[_alacritty__help__msg__create-window_commands] )) ||
-_alacritty__help__msg__create-window_commands() {
+(( $+functions[_gnostr__help__msg__create-window_commands] )) ||
+_gnostr__help__msg__create-window_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty help msg create-window commands' commands "$@"
+    _describe -t commands 'gnostr help msg create-window commands' commands "$@"
 }
-(( $+functions[_alacritty__migrate_commands] )) ||
-_alacritty__migrate_commands() {
+(( $+functions[_gnostr__migrate_commands] )) ||
+_gnostr__migrate_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty migrate commands' commands "$@"
+    _describe -t commands 'gnostr migrate commands' commands "$@"
 }
-(( $+functions[_alacritty__msg_commands] )) ||
-_alacritty__msg_commands() {
+(( $+functions[_gnostr__msg_commands] )) ||
+_gnostr__msg_commands() {
     local commands; commands=(
-'create-window:Create a new window in the same Alacritty process' \
-'config:Update the Alacritty configuration' \
+'create-window:Create a new window in the same gnostr process' \
+'config:Update the gnostr configuration' \
 'help:Print this message or the help of the given subcommand(s)' \
     )
-    _describe -t commands 'alacritty msg commands' commands "$@"
+    _describe -t commands 'gnostr msg commands' commands "$@"
 }
-(( $+functions[_alacritty__msg__config_commands] )) ||
-_alacritty__msg__config_commands() {
+(( $+functions[_gnostr__msg__config_commands] )) ||
+_gnostr__msg__config_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty msg config commands' commands "$@"
+    _describe -t commands 'gnostr msg config commands' commands "$@"
 }
-(( $+functions[_alacritty__msg__create-window_commands] )) ||
-_alacritty__msg__create-window_commands() {
+(( $+functions[_gnostr__msg__create-window_commands] )) ||
+_gnostr__msg__create-window_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty msg create-window commands' commands "$@"
+    _describe -t commands 'gnostr msg create-window commands' commands "$@"
 }
-(( $+functions[_alacritty__msg__help_commands] )) ||
-_alacritty__msg__help_commands() {
+(( $+functions[_gnostr__msg__help_commands] )) ||
+_gnostr__msg__help_commands() {
     local commands; commands=(
-'create-window:Create a new window in the same Alacritty process' \
-'config:Update the Alacritty configuration' \
+'create-window:Create a new window in the same gnostr process' \
+'config:Update the gnostr configuration' \
 'help:Print this message or the help of the given subcommand(s)' \
     )
-    _describe -t commands 'alacritty msg help commands' commands "$@"
+    _describe -t commands 'gnostr msg help commands' commands "$@"
 }
-(( $+functions[_alacritty__msg__help__config_commands] )) ||
-_alacritty__msg__help__config_commands() {
+(( $+functions[_gnostr__msg__help__config_commands] )) ||
+_gnostr__msg__help__config_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty msg help config commands' commands "$@"
+    _describe -t commands 'gnostr msg help config commands' commands "$@"
 }
-(( $+functions[_alacritty__msg__help__create-window_commands] )) ||
-_alacritty__msg__help__create-window_commands() {
+(( $+functions[_gnostr__msg__help__create-window_commands] )) ||
+_gnostr__msg__help__create-window_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty msg help create-window commands' commands "$@"
+    _describe -t commands 'gnostr msg help create-window commands' commands "$@"
 }
-(( $+functions[_alacritty__msg__help__help_commands] )) ||
-_alacritty__msg__help__help_commands() {
+(( $+functions[_gnostr__msg__help__help_commands] )) ||
+_gnostr__msg__help__help_commands() {
     local commands; commands=()
-    _describe -t commands 'alacritty msg help help commands' commands "$@"
+    _describe -t commands 'gnostr msg help help commands' commands "$@"
 }
 
-if [ "$funcstack[1]" = "_alacritty" ]; then
-    _alacritty "$@"
+if [ "$funcstack[1]" = "_gnostr" ]; then
+    _gnostr "$@"
 else
-    compdef _alacritty alacritty
+    compdef _gnostr gnostr
 fi
