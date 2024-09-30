@@ -1,6 +1,6 @@
 [package]
 name = "gnostr"
-version = "0.0.0"
+version = "0.0.1"
 authors = ["gnosstr <admin@gnostr.org>", "Christian Duerr <contact@christianduerr.com>", "Joe Wilm <joe@jwilm.com>"]
 license = "Apache-2.0"
 description = "A fast, cross-platform, OpenGL terminal emulator"
