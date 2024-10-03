@@ -29,6 +29,14 @@ cargo-build:### 	cargo build
 ## 	cargo-build q=true
 	@. $(HOME)/.cargo/env || true
 	@RUST_BACKTRACE=all cargo b $(QUIET)
+cargo-d:cargo-doc### 	cargo d
+cargo-doc:### 	cargo doc
+## 	cargo-d --no-deps
+	@. $(HOME)/.cargo/env || true
+	@RUST_BACKTRACE=all cargo d --no-deps
+
+
+
 cargo-i:cargo-install
 cargo-install:### 	cargo install --path .
 	@. $(HOME)/.cargo/env || true
