@@ -5,7 +5,7 @@ on:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   CARGO_TERM_COLOR: always
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
       - name: Upload Application
         run: |
           mv ./target/release/osx/gnostr.dmg ./gnostr-${GITHUB_REF##*/}.dmg
-          ./.github/workflows/upload_asset.sh ./gnostr-${GITHUB_REF##*/}.dmg $GITHUB_TOKEN
+          ./.github/workflows/upload_asset.sh ./gnostr-${GITHUB_REF##*/}.dmg $GH_TOKEN
 
   windows:
     runs-on: windows-latest
@@ -48,7 +48,7 @@ jobs:
         run: |
           cp ./target/release/alacritty.exe ./Alacritty-${GITHUB_REF##*/}-portable.exe
           ./.github/workflows/upload_asset.sh \
-            ./Alacritty-${GITHUB_REF##*/}-portable.exe $GITHUB_TOKEN
+            ./Alacritty-${GITHUB_REF##*/}-portable.exe $GH_TOKEN
       - name: Install WiX
         run: dotnet tool install --global wix --version 4.0.5
       - name: Create msi installer
@@ -59,7 +59,7 @@ jobs:
       - name: Upload msi installer
         run: |
           ./.github/workflows/upload_asset.sh \
-            ./Alacritty-${GITHUB_REF##*/}-installer.msi $GITHUB_TOKEN
+            ./Alacritty-${GITHUB_REF##*/}-installer.msi $GH_TOKEN
 
   linux:
     runs-on: ubuntu-latest
@@ -80,14 +80,14 @@ jobs:
           scdoc < extra/man/alacritty-bindings.5.scd | gzip -c > "./alacritty-bindings.5.gz"
       - name: Upload Assets
         run: |
-          mv ./extra/logo/alacritty-term.svg ./Alacritty.svg
-          ./.github/workflows/upload_asset.sh ./Alacritty.svg $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty.1.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty-msg.1.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty.5.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./alacritty-bindings.5.gz $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/completions/alacritty.bash $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/completions/alacritty.fish $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/completions/_alacritty $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/linux/Alacritty.desktop $GITHUB_TOKEN
-          ./.github/workflows/upload_asset.sh ./extra/alacritty.info $GITHUB_TOKEN
+          #mv ./extra/logo/alacritty-term.svg ./Alacritty.svg
+          #./.github/workflows/upload_asset.sh ./Alacritty.svg $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./alacritty.1.gz $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./alacritty-msg.1.gz $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./alacritty.5.gz $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./alacritty-bindings.5.gz $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./extra/completions/alacritty.bash $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./extra/completions/alacritty.fish $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./extra/completions/_alacritty $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./extra/linux/Alacritty.desktop $GH_TOKEN
+          #./.github/workflows/upload_asset.sh ./extra/alacritty.info $GH_TOKEN
