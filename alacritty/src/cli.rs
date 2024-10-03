@@ -21,11 +21,9 @@ use crate::logging::LOG_TARGET_IPC_CONFIG;
 #[derive(Parser, Default, Debug)]
 #[clap(author, about, version = env!("VERSION"))]
 pub struct Options {
-
     //COMPOSE A NOSTR NOTE
 
     //gnostr --sec 1 --content "content" --dm www --kind 1 --created-at "$(date +%s) --pow 1"
-
     /// nostr note
     #[clap(long)]
     pub content: Option<String>,
@@ -58,23 +56,23 @@ pub struct Options {
     #[clap(long)]
     pub mine_pubkey: Option<String>,
 
-    /// nostr tag <string> <sting>
+    /// nostr tag \<string\> \<string\>
     #[clap(long)]
     pub tag: Option<Vec<String>>,
 
-    /// sha256 <string>
+    /// sha256 \<string\>
     #[clap(long)]
     pub hash: Option<String>,
 
-    /// event id <string>
+    /// event id \<string\>
     #[clap(short)]
     pub e: Option<String>,
 
-    /// pubkey <string>
+    /// pubkey \<string\>
     #[clap(short)]
     pub p: Option<String>,
 
-    /// t <string>
+    /// t \<string\>
     #[clap(short)]
     pub t: Option<String>,
 
@@ -83,7 +81,6 @@ pub struct Options {
     //
 
     //
-
     /// Print all events to STDOUT.
     #[clap(long)]
     pub print_events: bool,
@@ -291,8 +288,11 @@ impl WindowIdentity {
 #[derive(Subcommand, Debug)]
 pub enum Subcommands {
     #[cfg(unix)]
+    Cli(CliOptions),
     Msg(MessageOptions),
     Migrate(MigrateOptions),
+    Relay(RelayOptions),
+    Tui(TuiOptions),
 }
 
 /// Send a message to the Alacritty socket.
@@ -317,6 +317,23 @@ pub enum SocketMessage {
 
     /// Update the Alacritty configuration.
     Config(IpcConfig),
+}
+
+/// Invoke gnostr-cli with options
+#[derive(Args, Clone, Debug)]
+pub struct CliOptions {}
+
+/// Invoke gnostr-relay with options
+#[derive(Args, Clone, Debug)]
+pub struct RelayOptions {}
+
+/// Invoke gnostr-tui with options
+#[derive(Args, Clone, Debug)]
+pub struct TuiOptions {
+    /// Path to git repository.
+    #[clap(short, long, value_hint = ValueHint::FilePath)]
+    pub repo: Option<PathBuf>,
+
 }
 
 /// Migrate the configuration file.

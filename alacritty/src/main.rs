@@ -79,8 +79,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     match options.subcommands {
         #[cfg(unix)]
+        Some(Subcommands::Cli(_)) => todo!(),
         Some(Subcommands::Msg(options)) => msg(options)?,
         Some(Subcommands::Migrate(options)) => migrate::migrate(options),
+        Some(Subcommands::Relay(_)) => todo!(),
+        Some(Subcommands::Tui(_)) => todo!(),
         None => alacritty(options)?,
     }
 
