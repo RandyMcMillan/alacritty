@@ -215,6 +215,10 @@ pub struct TerminalOptions {
     #[clap(long, value_hint = ValueHint::FilePath)]
     pub working_directory: Option<PathBuf>,
 
+    /// Start the shell in the specified git repository
+    #[clap(long, value_hint = ValueHint::FilePath)]
+    pub repo: Option<PathBuf>,
+
     /// Remain open after child process exit.
     #[clap(long)]
     pub hold: bool,
@@ -241,6 +245,13 @@ impl TerminalOptions {
                 pty_config.working_directory = Some(working_directory.to_owned());
             } else {
                 error!("Invalid working directory: {:?}", working_directory);
+            }
+        }
+        if let Some(repo) = &self.repo {
+            if repo.is_dir() {
+                pty_config.working_directory = Some(repo.to_owned());
+            } else {
+                error!("Invalid working directory: {:?}", repo);
             }
         }
 
