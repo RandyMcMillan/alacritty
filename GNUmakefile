@@ -4,6 +4,7 @@
 ?:
 	@sed -n 's/^###//p' ${MAKEFILE_LIST} | column -t -s ':' |  sed -e 's/^/	/'
 -include Makefile
+-include gnostr.mk
 -include cargo.mk
 
 
