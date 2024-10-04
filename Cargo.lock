@@ -4,7 +4,7 @@ version = 3
 
 [[package]]
 name = "Alacritty"
-version = "0.0.105"
+version = "0.0.106"
 dependencies = [
  "ahash",
  "alacritty_config",
