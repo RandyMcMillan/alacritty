@@ -40,7 +40,7 @@ cargo-doc:### 	cargo doc
 cargo-i:cargo-install
 cargo-install:### 	cargo install --path .
 	@. $(HOME)/.cargo/env || true
-	@cargo install --path alacritty $(FORCE)
+	@cargo install --path gnostr $(FORCE)
 cargo-br:cargo-build-release### 	cargo-br
 ## 	cargo-br q=true
 cargo-build-release:### 	cargo-build-release

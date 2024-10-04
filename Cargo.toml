@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "alacritty",
+    "gnostr",
     "alacritty_terminal",
     "alacritty_config",
     "alacritty_config_derive",
