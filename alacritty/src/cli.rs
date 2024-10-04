@@ -220,11 +220,14 @@ pub struct TerminalOptions {
     pub hold: bool,
 
     /// Command and args to execute (must be last argument).
-    #[clap(short = 'e', long, allow_hyphen_values = true, num_args = 1..)]
+    #[clap(long = "cmd", allow_hyphen_values = true, num_args = 1..)]
     command: Vec<String>,
 }
 
 impl TerminalOptions {
+    /// Shell override passed through the CLI.
+    /// Shell override passed through the CLI.
+    /// Shell override passed through the CLI.
     /// Shell override passed through the CLI.
     pub fn command(&self) -> Option<Program> {
         let (program, args) = self.command.split_first()?;
@@ -264,7 +267,7 @@ impl From<TerminalOptions> for PtyOptions {
 #[derive(Serialize, Deserialize, Args, Default, Debug, Clone, PartialEq, Eq)]
 pub struct WindowIdentity {
     /// Defines the window title [default: Alacritty].
-    #[clap(short = 'T', short_alias('t'), long)]
+    #[clap(short = 'T', short_alias('T'), long)]
     pub title: Option<String>,
 
     /// Defines window class/app_id on X11/Wayland [default: Alacritty].
