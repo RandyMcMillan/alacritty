@@ -12,6 +12,7 @@ name = "uniffi-bindgen"
 path = "uniffi-bindgen.rs"
 
 [dependencies]
+alacritty_terminal = { version = "0.26.0", path = "../../alacritty_terminal" }
 uniffi = { version = "0.28.0", features = [ "cli" ] }
 
 [build-dependencies]
